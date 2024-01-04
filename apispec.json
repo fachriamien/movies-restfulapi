@@ -1,0 +1,296 @@
+{
+    "openapi":"3.0.3",
+    "info": {
+      "title":"Movies RESTful API",
+      "description":"API Spec for Movies RESTful API ",
+      "version":"1.0.0"
+    },
+    "servers": [{
+        "url": "http://localhost:8081"
+    }],
+    "paths": {
+        "/movies": {
+            "get": {
+                "security": [{
+                    "MoviesAuth":[]
+                }],
+                "tags": ["Movies API"],
+                "description": "List all Movies",
+                "summary": "List all Movies",
+                "responses": {
+                    "200":{
+                        "description": "Success get all movies",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "code":{
+                                            "type": "number"
+                                        },
+                                        "status":{
+                                            "type": "string"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "$ref": "#/components/schemas/Movie"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post":{
+                "security": [{
+                    "MoviesAuth":[]
+                }],
+                "tags": ["Movies API"],
+                "description": "Create new Movie",
+                "summary": "Create new Movie",
+                "requestBody": {
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schemas/CreateMovie"
+                            }
+                        } 
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success Create Movie",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "code":{
+                                            "type": "number"
+                                        },
+                                        "status":{
+                                            "type": "string"
+                                        },
+                                        "data":{
+                                            "$ref": "#/components/schemas/Movie"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/{id}": {
+            "get": {
+                "security": [{
+                    "MoviesAuth":[]
+                }],
+                "tags": ["Movies API"],
+                "description": "Get Movie by ID",
+                "summary": "Get Movie by ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Movie ID"
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Success get category",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "code":{
+                                            "type": "number"
+                                        },
+                                        "status":{
+                                            "type": "string"
+                                        },
+                                        "data":{
+                                            "$ref": "#/components/schemas/Movie"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [{
+                    "MoviesAuth":[]
+                }],
+                "tags": ["Movies API"],
+                "description": "Update Movie",
+                "summary": "Update Movie",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Movie ID"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schemas/UpdateMovie"
+                            }
+                        } 
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success update category",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "code":{
+                                            "type": "number"
+                                        },
+                                        "status":{
+                                            "type": "string"
+                                        },
+                                        "data":{
+                                            "$ref": "#/components/schemas/Movie"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [{
+                    "MoviesAuth":[]
+                }],
+                "tags": ["Movies API"],
+                "description": "Delete Movie by ID",
+                "summary": "Delete Movie by ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Movie ID"
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Success delete category",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "code":{
+                                            "type": "number"
+                                        },
+                                        "status":{
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    },
+    "components": {
+        "securitySchemes": {
+            "MoviesAuth":{
+                "type": "apiKey",
+                "in": "header",
+                "name": "API-Key",
+                "description": "Authentication for Movies API"
+            }
+        },
+        "schemas": {
+            "UpdateMovie":{
+                "type": "object",
+                "properties": {
+                    "title":{
+                        "type": "string"
+                    },
+                    "description":{
+                        "type": "string"
+                    },
+                    "rating":{
+                        "type": "number"
+                    },
+                    "image":{
+                        "type": "string"
+                    },
+                    "created_at":{
+                        "type": "string"
+                    },
+                    "updated_at":{
+                        "type": "string"
+                    }
+                }
+            },
+            "CreateMovie":{
+                "type": "object",
+                "properties": {
+                    "title":{
+                        "type": "string"
+                    },
+                    "description":{
+                        "type": "string"
+                    },
+                    "rating":{
+                        "type": "number"
+                    },
+                    "image":{
+                        "type": "string"
+                    },
+                    "created_at":{
+                        "type": "string"
+                    },
+                    "updated_at":{
+                        "type": "string"
+                    }
+                }
+            },
+            "Movie":{
+                "type": "object",
+                "properties": {
+                    "id":{
+                        "type": "integer"
+                    },
+                    "title":{
+                        "type": "string"
+                    },
+                    "description":{
+                        "type": "string"
+                    },
+                    "rating":{
+                        "type": "number"
+                    },
+                    "image":{
+                        "type": "string"
+                    },
+                    "created_at":{
+                        "type": "string"
+                    },
+                    "updated_at":{
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
